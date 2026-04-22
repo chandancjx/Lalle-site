@@ -1,1 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Private Birthday</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ffe0ec, #e0f7fa);
+  overflow-x: hidden;
+}
+
+/* Flower animation */
+.flowers::before {
+  content: "🌸 🌼 🌺 🌷 🌸 🌼 🌺";
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  animation: move 10s linear infinite;
+}
+@keyframes move {
+  0% {transform: translateX(-100%);}
+  100% {transform: translateX(100%);}
+}
+
+/* Pages */
+.page {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+.active { display: flex; }
+
+/* Buttons */
+.btn {
+  padding: 14px 30px;
+  border-radius: 12px;
+  border: none;
+  background: #ff4081;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn:hover { transform: scale(1.1); }
+
+.next-btn {
+  margin-top: 20px;
+  font-size: 20px;
+  padding: 16px 35px;
+  background: #6a1b9a;
+}
+
+/* Destroy */
+.destroy {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: red;
+}
+
+/* Teddy */
+.teddy {
+  width: 150px;
+  animation: float 2s infinite;
+}
+@keyframes float {
+  50% { transform: translateY(-15px); }
+}
+
+/* Letter */
+.letter {
+  background: #fff3e0;
+  padding: 30px;
+  border-radius: 15px;
+  width: 85%;
+  max-width: 600px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.2);
+  font-family: 'Great Vibes', cursive;
+  font-size: 20px;
+  animation: fadeIn 1.5s;
+}
+@keyframes fadeIn {
+  from {opacity:0; transform: scale(0.9);}
+  to {opacity:1; transform: scale(1);}
+}
+
+/* Inputs */
+input {
+  margin: 5px;
+  padding: 10px;
+  width: 80%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Counter */
+#counter {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 14px;
+  opacity: 0.6;
+}
+</style>
+</head>
+
+<body class="flowers">
+
+<button class="btn destroy" onclick="destroySite()">Delete</button>
+<div id="counter"></div>
+
+<!-- Password -->
+<div id="lock" class="page active">
+  <h2>Enter Password</h2>
+  <input type="password" id="pass">
+  <button class="btn" onclick="checkPass()">Enter</button>
+</div>
+
+<!-- Page 1 -->
+<div id="page1" class="page">
+  <img class="teddy" src="https://media.tenor.com/2roX3uxz_68AAAAM/teddy-bear.gif">
+  <button class="btn next-btn" onclick="goPage(2)">Click Here</button>
+</div>
+
+<!-- Page 2 -->
+<div id="page2" class="page">
+  <div class="letter">
+    <button class="btn" onclick="openLetter(2)">Open Letter</button>
+    <div id="letter2" style="display:none;">
+      <p>Do you hear shots outside , one one shots are shouting happy birthday lalle from my side</p>
+      <p>How are you today is your day Don't waste your day in a stressed way enjoy your day rock your day , grow more shine more and see to our side too 👀</p>
+      <button class="btn next-btn" onclick="goPage(3)">Next Page</button>
+    </div>
+  </div>
+</div>
+
+<!-- Page 3 -->
+<div id="page3" class="page">
+  <div class="letter">
+    <button class="btn" onclick="openLetter(3)">Open Letter</button>
+    <div id="letter3" style="display:none;">
+      <p>
+        I donno your likes and dislikes but what I can express now iam expressing sorry if any mistake has done , please collect your gift morning if you want I'll come simply give you gift and I will get lost without talking anything if you want like that , ok this much is enough now sleep peacefully or say thank you to other friends let's meet up tomorrow call or text me and say the timmings I'll bring the presents I brought this presents for you long back iam keeping in my friend's home so take them as soon as posible Ohk now say good night in that 3 lines, I can't see the website but I'll think you have typed good night you must type in format ha
+      </p>
+
+      <input type="text"><br>
+      <input type="text"><br>
+      <input type="text"><br>
+
+      <button class="btn" onclick="finalMsg()">Submit</button>
+
+      <p id="finalText" style="display:none;">
+        Taaataaaa <br> Byeeee <br> Good night 😴
+      </p>
+    </div>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+</audio>
+
+<script>
+function checkPass() {
+  let p = document.getElementById("pass").value;
+  if (p === "9353") {
+    goPage(1);
+    countVisit();
+    document.getElementById("bgMusic").play();
+  } else {
+    alert("Wrong password");
+  }
+}
+
+function goPage(num) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById("page" + num).classList.add('active');
+}
+
+function openLetter(num) {
+  document.getElementById("letter" + num).style.display = "block";
+}
+
+function finalMsg() {
+  document.getElementById("finalText").style.display = "block";
+}
+
+function countVisit() {
+  let count = localStorage.getItem("visits") || 0;
+  count++;
+  localStorage.setItem("visits", count);
+  document.getElementById("counter").innerText = "Opened: " + count + " times";
+}
+
+function destroySite() {
+  document.body.innerHTML = "<h1>Website Deleted</h1>";
+  localStorage.clear();
+}
+</script>
+
+</body>
+</html>
