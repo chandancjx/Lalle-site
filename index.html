@@ -2,233 +2,215 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Private Birthday</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Birthday</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  overflow: hidden;
-  color: white;
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#e3f2fd,#fce4ec);
+  overflow:hidden;
 }
 
-/* 🎥 Background video */
-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  filter: brightness(0.6);
+/* pages */
+.page{
+  display:none;
+  height:100vh;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  padding:20px;
+  animation:fade 0.8s ease;
+}
+.active{display:flex;}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
-/* 🌸 Flower border */
-body::before, body::after {
-  content: "";
-  position: fixed;
-  width: 250px;
-  height: 250px;
-  background: url('https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-blue-flower-watercolor-border-png-image_6703351.png') no-repeat;
-  background-size: contain;
-}
-body::before { top: 0; right: 0; }
-body::after { bottom: 0; left: 0; transform: rotate(180deg); }
-
-/* Pages */
-.page {
-  display: none;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  animation: fade 1s;
-}
-.active { display: flex; }
-
-@keyframes fade {
-  from {opacity:0;}
-  to {opacity:1;}
+/* buttons */
+.btn{
+  padding:12px 25px;
+  border:none;
+  border-radius:10px;
+  background:#1976d2;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:15px;
 }
 
-/* Buttons */
-.btn {
-  padding: 12px 28px;
-  border-radius: 12px;
-  border: none;
-  background: rgba(0,0,0,0.5);
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-}
-.next-btn { margin-top: 20px; }
-
-/* Delete */
-.destroy {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  background: red;
+/* delete */
+.destroy{
+  position:fixed;
+  top:10px;
+  right:10px;
+  background:red;
 }
 
-/* Teddy */
-.teddy {
-  width: 140px;
-  animation: float 2s infinite;
+/* letter */
+.letter{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  width:90%;
+  max-width:500px;
+  box-shadow:0 0 15px rgba(0,0,0,0.15);
+  animation:pop 0.6s ease;
 }
-@keyframes float {
-  50% { transform: translateY(-15px); }
-}
-
-/* Letter */
-.letter {
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(15px);
-  padding: 25px;
-  border-radius: 15px;
-  width: 85%;
-  max-width: 500px;
+@keyframes pop{
+  from{transform:scale(0.9); opacity:0;}
+  to{transform:scale(1); opacity:1;}
 }
 
-/* Inputs */
-input {
-  margin: 5px;
-  padding: 10px;
-  width: 80%;
-  border-radius: 8px;
-  border: none;
+/* inputs */
+input{
+  margin:5px;
+  padding:10px;
+  width:80%;
 }
 
-/* 🎁 Gift box */
-.gift {
-  width: 120px;
-  cursor: pointer;
-  animation: bounce 1s infinite;
-}
-@keyframes bounce {
-  50% { transform: scale(1.1); }
+/* typing */
+.typing{
+  font-size:22px;
+  font-weight:500;
 }
 
-/* 💓 Heart effect */
-.heart {
-  position: fixed;
-  font-size: 20px;
-  animation: rise 2s linear forwards;
+/* hearts */
+.heart{
+  position:fixed;
+  font-size:18px;
+  animation:rise 1.5s linear forwards;
 }
-@keyframes rise {
-  to { transform: translateY(-100px); opacity: 0; }
+@keyframes rise{
+  to{transform:translateY(-100px); opacity:0;}
 }
 
-/* Typing */
-.typing {
-  font-size: 24px;
-  font-weight: bold;
+/* petals */
+.petal{
+  position:fixed;
+  top:-10px;
+  width:10px;
+  height:10px;
+  background:pink;
+  border-radius:50%;
+  opacity:0.6;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(100vh);}
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎥 Background -->
-<video autoplay muted loop>
-  <source src="https://cdn.coverr.co/videos/coverr-candles-9717/1080p.mp4" type="video/mp4">
-</video>
-
 <button class="btn destroy" onclick="destroySite()">Delete</button>
 
-<!-- Page 1 -->
+<!-- PAGE 1 -->
 <div id="page1" class="page active">
-  <div class="typing" id="typingText"></div>
-  <img class="teddy" src="https://media.tenor.com/2roX3uxz_68AAAAM/teddy-bear.gif">
-  <button class="btn next-btn" onclick="nextWithHearts(2)">Click Here</button>
+  <div id="typing" class="typing"></div>
+  <button class="btn" onclick="nextPage(2)">Click Here</button>
 </div>
 
-<!-- Page 2 -->
+<!-- PAGE 2 -->
 <div id="page2" class="page">
   <div class="letter">
-    <p>Happy birthday 💙 I hope your day is full of happiness and smiles</p>
-    <img class="gift" src="https://cdn-icons-png.flaticon.com/512/3468/3468374.png" onclick="openGift()">
-    <button class="btn next-btn" onclick="nextWithHearts(3)">Next Page</button>
+    <p>
+      Do you hear shots outside, one one shots are shouting happy birthday lalle from my side
+    </p>
+    <p>
+      How are you today is your day. Don’t waste your day in a stressed way. Enjoy your day, rock your day, grow more, shine more and see to our side too 👀
+    </p>
+    <button class="btn" onclick="nextPage(3)">Next Page</button>
   </div>
 </div>
 
-<!-- Page 3 -->
+<!-- PAGE 3 -->
 <div id="page3" class="page">
   <div class="letter">
-    <p>Now say good night in 3 lines 😊</p>
+    <p>
+      I donno your likes and dislikes but what I can express now I am expressing. Sorry if any mistake has been done. 
+      Please collect your gift in the morning. If you want, I’ll just come, give you the gift and leave.  
+      Let’s meet tomorrow, call or text me the timing.  
+      I brought this present long back and kept it safely.  
+      Now say good night in 3 lines 😊
+    </p>
 
-    <input type="text"><br>
-    <input type="text"><br>
-    <input type="text"><br>
+    <input type="text" placeholder="Line 1"><br>
+    <input type="text" placeholder="Line 2"><br>
+    <input type="text" placeholder="Line 3"><br>
 
-    <button class="btn" onclick="finalMsg()">Submit</button>
+    <button class="btn" onclick="showFinal()">Submit</button>
 
-    <p id="finalText" style="display:none;">
+    <p id="finalMsg" style="display:none;">
       Taaataaaa <br> Byeeee <br> Good night 😴
     </p>
   </div>
 </div>
 
 <script>
-// Page switch + hearts
-function nextWithHearts(num){
+// navigation + hearts
+function nextPage(n){
   createHearts();
-  goPage(num);
+  goPage(n);
 }
 
-function goPage(num){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById("page"+num).classList.add('active');
+function goPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById("page"+n).classList.add('active');
 }
 
-// Delete
+// delete
 function destroySite(){
-  let pass = prompt("Enter password:");
+  let pass=prompt("Enter password:");
   if(pass==="9353"){
     document.body.innerHTML="<h1>Website Deleted</h1>";
   } else alert("Wrong password");
 }
 
-// Hearts
+// final
+function showFinal(){
+  document.getElementById("finalMsg").style.display="block";
+}
+
+// typing
+let text="Happy Birthday Lalle 💙";
+let i=0;
+function type(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML+=text[i];
+    i++;
+    setTimeout(type,70);
+  }
+}
+type();
+
+// hearts
 function createHearts(){
-  for(let i=0;i<10;i++){
+  for(let i=0;i<6;i++){
     let h=document.createElement("div");
     h.className="heart";
     h.innerHTML="💖";
     h.style.left=Math.random()*100+"vw";
     h.style.top="70vh";
     document.body.appendChild(h);
-    setTimeout(()=>h.remove(),2000);
+    setTimeout(()=>h.remove(),1500);
   }
 }
 
-// Gift animation
-function openGift(){
-  alert("🎁 Surprise Gift Waiting!");
+// petals (light)
+for(let i=0;i<10;i++){
+  let p=document.createElement("div");
+  p.className="petal";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=(6+Math.random()*4)+"s";
+  document.body.appendChild(p);
 }
-
-// Final msg
-function finalMsg(){
-  document.getElementById("finalText").style.display="block";
-}
-
-// Typing
-let text="Happy Birthday Lalle 💙";
-let i=0;
-function typing(){
-  if(i<text.length){
-    document.getElementById("typingText").innerHTML+=text[i];
-    i++;
-    setTimeout(typing,80);
-  }
-}
-typing();
 </script>
 
 </body>
