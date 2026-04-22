@@ -134,9 +134,40 @@ input{
   </div>
 </div>
 
-<!-- PAGE 3 -->
+<!-- PAGE 3 (Candle + Cake) -->
 <div id="page3" class="page">
+
+  <div class="letter" id="candleSection">
+    <div id="candle" style="font-size:60px;">🕯️</div>
+    <button class="btn" onclick="lightCandle()">Light Candle</button>
+    <p id="countdown" style="display:none;"></p>
+  </div>
+
+  <div class="letter" id="cakeSection" style="display:none;">
+    <div id="cake" style="font-size:70px;">🎂</div>
+
+    <button class="btn" onclick="cutCake()">Cut the cake</button>
+
+    <p id="cakeMsg" style="display:none;">
+      I ate that piece of cake… it is as sweet as you are 😂
+    </p>
+
+    <button id="nextMsgBtn" class="btn" style="display:none;" onclick="showNextMsg()">Next</button>
+
+    <p id="secondMsg" style="display:none;">
+      I am the one who made your birthday online, right? 😂
+    </p>
+
+    <button id="finalNext" class="btn" style="display:none;" onclick="nextPage(4)">Next</button>
+
+  </div>
+
+</div>
+
+<!-- PAGE 4 -->
+<div id="page4" class="page">
   <div class="letter">
+
     <p>
       I don’t know your likes and dislikes, but whatever I feel, I’m expressing now. Sorry if I’ve made any mistakes.
     </p>
@@ -164,11 +195,12 @@ input{
 
     <button class="btn" onclick="showFinal()">Submit</button>
 
-    <p id="finalMsg" style="display:none; margin-top:20px; font-weight:500; color:#1976d2;">
+    <p id="finalMsg" style="display:none; margin-top:20px; color:#1976d2;">
       Taaataaaa <br><br>
       Byeeee <br><br>
       Good night 😴
     </p>
+
   </div>
 </div>
 
@@ -176,10 +208,6 @@ input{
 // navigation + hearts
 function nextPage(n){
   createHearts();
-  goPage(n);
-}
-
-function goPage(n){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById("page"+n).classList.add('active');
 }
@@ -190,13 +218,6 @@ function destroySite(){
   if(pass==="9353"){
     document.body.innerHTML="<h1>Website Deleted</h1>";
   } else alert("Wrong password");
-}
-
-// final message fix
-function showFinal(){
-  let msg = document.getElementById("finalMsg");
-  msg.style.display = "block";
-  msg.scrollIntoView({behavior:"smooth"});
 }
 
 // typing
@@ -231,6 +252,46 @@ for(let i=0;i<10;i++){
   p.style.left=Math.random()*100+"vw";
   p.style.animationDuration=(6+Math.random()*4)+"s";
   document.body.appendChild(p);
+}
+
+// candle logic
+function lightCandle(){
+  document.getElementById("candle").innerHTML="🕯️🔥";
+
+  let count=3;
+  let cd=document.getElementById("countdown");
+  cd.style.display="block";
+
+  let interval=setInterval(()=>{
+    cd.innerText="Blow candle in "+count+"...";
+    count--;
+
+    if(count<0){
+      clearInterval(interval);
+      document.getElementById("candleSection").style.display="none";
+      document.getElementById("cakeSection").style.display="block";
+    }
+  },1000);
+}
+
+// cake
+function cutCake(){
+  document.getElementById("cake").innerHTML="🍰";
+  document.getElementById("cakeMsg").style.display="block";
+  document.getElementById("nextMsgBtn").style.display="inline-block";
+}
+
+// next msg
+function showNextMsg(){
+  document.getElementById("secondMsg").style.display="block";
+  document.getElementById("finalNext").style.display="inline-block";
+}
+
+// final message
+function showFinal(){
+  let msg=document.getElementById("finalMsg");
+  msg.style.display="block";
+  msg.scrollIntoView({behavior:"smooth"});
 }
 </script>
 
