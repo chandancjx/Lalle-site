@@ -121,11 +121,15 @@ input{
 <div id="page2" class="page">
   <div class="letter">
     <p>
-      Do you hear shots outside, one one shots are shouting happy birthday lalle from my side
+      Do you hear those shots outside? One by one, they’re saying “Happy Birthday, Lalle” from my side.
     </p>
+
     <p>
-      How are you today is your day. Don’t waste your day in a stressed way."jeevandali thumba ista patid ondane adu ninane " Enjoy your day, rock your day, grow more, shine more and see to our side too 👀
+      How are you today? It’s your day. Don’t spend it feeling stressed.  
+      "Jeevandalli tumba ishta patiddu ondane… adu neene."  
+      Enjoy your day, rock your day, grow more, shine more—and don’t forget to look at our side too 👀
     </p>
+
     <button class="btn" onclick="nextPage(3)">Next Page</button>
   </div>
 </div>
@@ -135,14 +139,23 @@ input{
   <div class="letter">
     <p>
       I don’t know your likes and dislikes, but whatever I feel, I’m expressing now. Sorry if I’ve made any mistakes.
+    </p>
 
-Please collect your gift tomorrow morning. If you want, I’ll simply come, give you the gift, and leave without talking. If you prefer that, it’s okay.
+    <p>
+      Please collect your gift tomorrow morning. If you want, I’ll simply come, give you the gift, and leave without talking. If you prefer that, that’s okay.
+    </p>
 
-Alright, that’s enough for now. Sleep peacefully, or say thank you to your friends. Let’s meet tomorrow—call or text me and tell me the timing, and I’ll bring the presents.
+    <p>
+      Alright, that’s enough for now. Sleep peacefully, or take your time replying to your friends.  
+      Let’s meet tomorrow—call or text me and tell me the timing, and I’ll bring the presents.
+    </p>
 
-I bought these presents long ago and kept them at my friend’s place, so take them as soon as possible.
+    <p>
+      I bought these presents long ago and kept them at my friend’s place, so take them as soon as possible.
+    </p>
 
-Now, say “good night” in three lines. I can’t see it, but I’ll imagine you typed it 😊
+    <p>
+      Now, say “good night” in three lines. I can’t see it, but I’ll imagine you typed it 😊
     </p>
 
     <input type="text" placeholder="Line 1"><br>
@@ -151,8 +164,10 @@ Now, say “good night” in three lines. I can’t see it, but I’ll imagine y
 
     <button class="btn" onclick="showFinal()">Submit</button>
 
-    <p id="finalMsg" style="display:none;">
-      Taaataaaa <br> Byeeee <br> Good night 😴
+    <p id="finalMsg" style="display:none; margin-top:20px; font-weight:500; color:#1976d2;">
+      Taaataaaa <br><br>
+      Byeeee <br><br>
+      Good night 😴
     </p>
   </div>
 </div>
@@ -177,9 +192,11 @@ function destroySite(){
   } else alert("Wrong password");
 }
 
-// final
+// final message fix
 function showFinal(){
-  document.getElementById("finalMsg").style.display="block";
+  let msg = document.getElementById("finalMsg");
+  msg.style.display = "block";
+  msg.scrollIntoView({behavior:"smooth"});
 }
 
 // typing
@@ -207,7 +224,7 @@ function createHearts(){
   }
 }
 
-// petals (light)
+// petals
 for(let i=0;i<10;i++){
   let p=document.createElement("div");
   p.className="petal";
